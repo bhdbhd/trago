@@ -1,0 +1,4 @@
+services:
+  limited_download.controller:
+    class: Drupal\limited_download\Controller\DownloadController
+    arguments: ['@state', '@config.factory']

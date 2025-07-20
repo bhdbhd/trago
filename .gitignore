@@ -1,0 +1,30 @@
+# Ignore all files and directories in the project.
+*
+
+# EXCEPT the following...
+
+# Keep this .gitignore file.
+!/.gitignore
+
+# Keep the main composer file.
+!/composer.json
+
+# Keep the 'web' directory, but not its contents.
+!/web/
+/web/*
+
+# Keep the 'modules' directory, but not its contents.
+!/web/modules/
+/web/modules/*
+
+# Keep the custom modules and their contents.
+!/web/modules/custom/
+!/web/modules/custom/**
+
+# Keep the 'themes' directory, but not its contents.
+!/web/themes/
+/web/themes/*
+
+# Keep the custom themes and their contents.
+!/web/themes/custom/
+!/web/themes/custom/**

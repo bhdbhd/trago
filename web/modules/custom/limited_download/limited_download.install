@@ -1,0 +1,36 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the Limited Download module.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function limited_download_install() {
+  // Set default configuration.
+  \Drupal::configFactory()->getEditable('limited_download.settings')
+    ->set('secret_key', 'your_forum_secret_123')
+    ->set('download_limit', 100)
+    ->set('file_path', '')
+    ->save();
+
+  // Initialize download counter.
+  \Drupal::state()->set('limited_download_count', 0);
+
+  \Drupal::messenger()->addMessage(t('Limited Download module has been installed. Please configure it at <a href="@url">Admin > Configuration > System > Limited Download Settings</a>.', [
+    '@url' => '/admin/config/system/limited-download',
+  ]));
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function limited_download_uninstall() {
+  // Clean up state variables.
+  \Drupal::state()->delete('limited_download_count');
+  
+  // Remove configuration.
+  \Drupal::configFactory()->getEditable('limited_download.settings')->delete();
+}

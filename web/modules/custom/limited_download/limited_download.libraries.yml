@@ -1,0 +1,7 @@
+admin:
+  version: 1.x
+  js:
+    js/limited_download.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal

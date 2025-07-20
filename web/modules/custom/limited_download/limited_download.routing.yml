@@ -1,0 +1,15 @@
+limited_download.download_page:
+  path: '/special-download/{secret_key}'
+  defaults:
+    _controller: '\Drupal\limited_download\Controller\DownloadController::downloadPage'
+    _title: 'Limited Download'
+  requirements:
+    _permission: 'access content'
+
+limited_download.admin:
+  path: '/admin/config/system/limited-download'
+  defaults:
+    _form: '\Drupal\limited_download\Form\LimitedDownloadSettingsForm'
+    _title: 'Limited Download Settings'
+  requirements:
+    _permission: 'administer site configuration'
