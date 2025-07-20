@@ -79,6 +79,8 @@ class LimitedDownloadSettingsForm extends FormBase {
       '#default_value' => $config->get('secret_key') ?: 'your_forum_secret_123',
       '#required' => TRUE,
       '#maxlength' => 255,
+      '#prefix' => '<div id="secret-key-input-wrapper">',
+      '#suffix' => '</div>',
     ];
 
     $form['secret_key_wrapper']['generate_key'] = [
@@ -86,16 +88,20 @@ class LimitedDownloadSettingsForm extends FormBase {
       '#value' => $this->t('Generate Random Key'),
       '#ajax' => [
         'callback' => '::generateRandomKeyCallback',
-        'wrapper' => 'ajax-url-wrapper',
+        'wrapper' => 'secret-key-ajax-wrapper',
         'effect' => 'fade',
       ],
     ];
 
-    $form['secret_key_wrapper']['current_url'] = [
+    $form['secret_key_wrapper']['ajax_wrapper'] = [
+      '#type' => 'container',
+      '#prefix' => '<div id="secret-key-ajax-wrapper">',
+      '#suffix' => '</div>',
+    ];
+
+    $form['secret_key_wrapper']['ajax_wrapper']['current_url'] = [
       '#type' => 'item',
       '#title' => $this->t('Current Download URL'),
-      '#prefix' => '<div id="ajax-url-wrapper">',
-      '#suffix' => '</div>',
       '#markup' => '<code>' . 
         \Drupal::request()->getSchemeAndHttpHost() . '/special-download/' . 
         ($config->get('secret_key') ?: 'your_forum_secret_123') . '</code>',
@@ -124,14 +130,36 @@ class LimitedDownloadSettingsForm extends FormBase {
       '#title' => $this->t('Current Status'),
     ];
 
+    $downloaded_ips = $this->state->get('limited_download_ips', []);
+    $unique_ips_count = count($downloaded_ips);
+
     $form['status']['info'] = [
-      '#markup' => '<p><strong>Downloads used:</strong> ' . $current_count . ' / ' . ($config->get('download_limit') ?: 100) . '</p>',
+      '#markup' => '<p><strong>Downloads used:</strong> ' . $current_count . ' / ' . ($config->get('download_limit') ?: 100) . '</p>
+                   <p><strong>Unique IPs downloaded:</strong> ' . $unique_ips_count . '</p>',
     ];
+
+    if ($unique_ips_count > 0) {
+      $form['status']['ip_list'] = [
+        '#type' => 'details',
+        '#title' => $this->t('Downloaded IP Addresses (@count)', ['@count' => $unique_ips_count]),
+        '#open' => FALSE,
+      ];
+
+      $ip_list = [];
+      foreach ($downloaded_ips as $index => $ip) {
+        $ip_list[] = ($index + 1) . '. ' . $ip;
+      }
+
+      $form['status']['ip_list']['ips'] = [
+        '#markup' => '<div style="max-height: 200px; overflow-y: auto; font-family: monospace; padding: 10px; background: #f5f5f5; border: 1px solid #ddd;">' . 
+                     implode('<br>', $ip_list) . '</div>',
+      ];
+    }
 
     if ($current_count > 0) {
       $form['reset'] = [
         '#type' => 'fieldset',
-        '#title' => $this->t('Reset Counter'),
+        '#title' => $this->t('Reset Options'),
       ];
 
       $form['reset']['reset_counter'] = [
@@ -139,6 +167,14 @@ class LimitedDownloadSettingsForm extends FormBase {
         '#title' => $this->t('Reset download counter to 0'),
         '#description' => $this->t('Check this box to reset the download counter. This will allow downloads to resume.'),
       ];
+
+      if ($unique_ips_count > 0) {
+        $form['reset']['reset_ips'] = [
+          '#type' => 'checkbox',
+          '#title' => $this->t('Reset IP address list'),
+          '#description' => $this->t('Check this box to clear the list of IP addresses that have downloaded. This will allow previously blocked IPs to download again.'),
+        ];
+      }
     }
 
     $form['actions']['#type'] = 'actions';
@@ -161,19 +197,21 @@ class LimitedDownloadSettingsForm extends FormBase {
     // Set the new value in the form state
     $form_state->setValue('secret_key', $random_key);
     
-    // Update the form element value
-    $form['secret_key_wrapper']['secret_key']['#value'] = $random_key;
+    // Create an AJAX response that updates both the input field and URL
+    $response = new \Drupal\Core\Ajax\AjaxResponse();
     
-    // Update just the URL display element
+    // Update the input field value
+    $response->addCommand(new \Drupal\Core\Ajax\InvokeCommand('#edit-secret-key', 'val', [$random_key]));
+    
+    // Update the URL display
     $base_url = \Drupal::request()->getSchemeAndHttpHost();
-    $form['secret_key_wrapper']['current_url']['#markup'] = '<code>' . 
-      $base_url . '/special-download/' . $random_key . '</code>';
+    $new_url = $base_url . '/special-download/' . $random_key;
+    $response->addCommand(new \Drupal\Core\Ajax\HtmlCommand('#secret-key-ajax-wrapper code', $new_url));
     
     // Add a status message
-    $this->messenger()->addStatus($this->t('New random key generated: @key', ['@key' => $random_key]));
+    $response->addCommand(new \Drupal\Core\Ajax\MessageCommand($this->t('New random key generated: @key', ['@key' => $random_key])));
     
-    // Return only the URL wrapper element to prevent nesting
-    return $form['secret_key_wrapper']['current_url'];
+    return $response;
   }
 
   /**
@@ -197,9 +235,16 @@ class LimitedDownloadSettingsForm extends FormBase {
     $config->set('file_path', $form_state->getValue('file_path'));
     $config->save();
 
+    // Reset counter if requested.
     if ($form_state->getValue('reset_counter')) {
       $this->state->set('limited_download_count', 0);
       $this->messenger()->addMessage($this->t('Download counter has been reset to 0.'));
+    }
+
+    // Reset IP list if requested.
+    if ($form_state->getValue('reset_ips')) {
+      $this->state->set('limited_download_ips', []);
+      $this->messenger()->addMessage($this->t('IP address list has been cleared. Previously blocked IPs can now download again.'));
     }
 
     $this->messenger()->addStatus($this->t('The configuration options have been saved.'));
