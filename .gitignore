@@ -28,3 +28,15 @@
 # Keep the custom themes and their contents.
 !/web/themes/custom/
 !/web/themes/custom/**
+
+# Keep the 'config' directory, but not its contents.
+!/config/
+/config/*
+
+# Keep the 'sync' directory, but not its contents.
+!/config/sync/
+/config/sync/*
+
+# Keep the 'partial' directory and its contents.
+!/config/sync/partial/
+!/config/sync/partial/**
