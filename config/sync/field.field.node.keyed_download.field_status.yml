@@ -1,0 +1,23 @@
+uuid: 3dec4d80-3175-4cc0-a6e2-843f381bfea7
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_status
+    - node.type.keyed_download
+id: node.keyed_download.field_status
+field_name: field_status
+entity_type: node
+bundle: keyed_download
+label: Status
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: Active
+  off_label: Inactive
+field_type: boolean

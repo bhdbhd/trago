@@ -1,0 +1,29 @@
+uuid: ceaa42bb-257d-4e37-9e6f-6a2c7b90ec16
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.landing_page.field_algo_file
+    - node.type.landing_page
+  module:
+    - user
+id: node.landing_page.default
+targetEntityType: node
+bundle: landing_page
+mode: default
+content:
+  field_algo_file:
+    type: entity_reference_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings: {  }
+    weight: 101
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden: {  }

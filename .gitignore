@@ -33,10 +33,6 @@
 !/config/
 /config/*
 
-# Keep the 'sync' directory, but not its contents.
+# Keep the 'sync' directory and its contents.
 !/config/sync/
-/config/sync/*
-
-# Keep the 'partial' directory and its contents.
-!/config/sync/partial/
-!/config/sync/partial/**
+!/config/sync/**
