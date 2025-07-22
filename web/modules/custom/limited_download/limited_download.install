@@ -16,8 +16,9 @@ function limited_download_install() {
     ->set('file_path', '')
     ->save();
 
-  // Initialize download counter.
+  // Initialize download counter and IP tracking.
   \Drupal::state()->set('limited_download_count', 0);
+  \Drupal::state()->set('limited_download_ips', []);
 
   \Drupal::messenger()->addMessage(t('Limited Download module has been installed. Please configure it at <a href="@url">Admin > Configuration > System > Limited Download Settings</a>.', [
     '@url' => '/admin/config/system/limited-download',
@@ -30,6 +31,7 @@ function limited_download_install() {
 function limited_download_uninstall() {
   // Clean up state variables.
   \Drupal::state()->delete('limited_download_count');
+  \Drupal::state()->delete('limited_download_ips');
   
   // Remove configuration.
   \Drupal::configFactory()->getEditable('limited_download.settings')->delete();

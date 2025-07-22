@@ -1,0 +1,29 @@
+uuid: d3d87c8b-7019-45a7-a256-c7f42148d8be
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_algo_file
+    - media.type.document
+    - node.type.landing_page
+id: node.landing_page.field_algo_file
+field_name: field_algo_file
+entity_type: node
+bundle: landing_page
+label: 'Algo File'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      document: document
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

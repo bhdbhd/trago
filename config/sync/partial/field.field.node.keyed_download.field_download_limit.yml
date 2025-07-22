@@ -1,0 +1,25 @@
+uuid: 28bc186b-77da-45fb-b899-74ad97061894
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_download_limit
+    - node.type.keyed_download
+id: node.keyed_download.field_download_limit
+field_name: field_download_limit
+entity_type: node
+bundle: keyed_download
+label: 'Download Limit'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  min: 1
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

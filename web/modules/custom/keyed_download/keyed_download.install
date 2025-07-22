@@ -1,0 +1,32 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the Keyed Download module.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function keyed_download_install() {
+  \Drupal::messenger()->addMessage(t('Keyed Download module has been installed. You can now create keyed downloads using the <a href="@url">Keyed Download content type</a>.', [
+    '@url' => '/node/add/keyed_download',
+  ]));
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function keyed_download_uninstall() {
+  // Clean up all IP tracking state data
+  $state = \Drupal::state();
+  $all_keys = $state->getMultiple([]);
+  
+  foreach ($all_keys as $key => $value) {
+    if (strpos($key, 'keyed_download_ips_') === 0) {
+      $state->delete($key);
+    }
+  }
+  
+  \Drupal::messenger()->addMessage(t('Keyed Download module has been uninstalled. All IP tracking data has been removed.'));
+}

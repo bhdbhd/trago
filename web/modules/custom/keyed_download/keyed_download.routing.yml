@@ -1,0 +1,7 @@
+keyed_download.download_page:
+  path: '/special-download/{secret_key}'
+  defaults:
+    _controller: '\Drupal\keyed_download\Controller\DownloadController::downloadPage'
+    _title: 'Keyed Download'
+  requirements:
+    _access: 'TRUE'

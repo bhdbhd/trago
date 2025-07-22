@@ -86,6 +86,20 @@ class DownloadController extends ControllerBase {
       ];
     }
 
+    // Get client IP address.
+    $client_ip = \Drupal::request()->getClientIp();
+    
+    // Check if this IP has already downloaded.
+    $downloaded_ips = $this->state->get('limited_download_ips', []);
+    if (in_array($client_ip, $downloaded_ips)) {
+      return [
+        '#markup' => '<div class="messages messages--error">
+          <h2>Already Downloaded</h2>
+          <p>Your IP address (' . $client_ip . ') has already downloaded this file. Each IP address can only download once.</p>
+        </div>',
+      ];
+    }
+
     // Check if file exists.
     if (!$file_path || !file_exists($file_path)) {
       return [
@@ -96,13 +110,17 @@ class DownloadController extends ControllerBase {
       ];
     }
 
+    // Add IP to downloaded list.
+    $downloaded_ips[] = $client_ip;
+    $this->state->set('limited_download_ips', $downloaded_ips);
+
     // Increment the download counter.
     $this->state->set('limited_download_count', $current_count + 1);
 
     // Log the download.
     \Drupal::logger('limited_download')->info('Download #@count served to IP @ip', [
       '@count' => $current_count + 1,
-      '@ip' => \Drupal::request()->getClientIp(),
+      '@ip' => $client_ip,
     ]);
 
     // Serve the file.

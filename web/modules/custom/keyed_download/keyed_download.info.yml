@@ -1,0 +1,10 @@
+name: Keyed Download
+type: module
+description: 'Provides keyed downloads with secret keys based on content type'
+core_version_requirement: ^8 || ^9 || ^10 || ^11
+package: Custom
+version: 1.0.0
+dependencies:
+  - drupal:node
+  - drupal:media
+  - drupal:file
