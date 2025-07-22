@@ -1,0 +1,11 @@
+node_form:
+  version: 1.x
+  js:
+    js/keyed_download_node_form.js: {}
+  css:
+    theme:
+      css/keyed_download.css: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupal.ajax

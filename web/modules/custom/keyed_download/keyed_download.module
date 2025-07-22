@@ -1,0 +1,261 @@
+<?php
+
+/**
+ * Custom submit handler for keyed download node forms.
+ */
+function keyed_download_node_form_submit($form, \Drupal\Core\Form\FormStateInterface $form_state) {
+  $node = $form_state->getFormObject()->getEntity();
+  
+  // Handle reset actions
+  if ($form_state->getValue('reset_counter')) {
+    $node->set('field_download_count', 0);
+    \Drupal::messenger()->addMessage(t('Download counter has been reset to 0.'));
+  }
+  
+  if ($form_state->getValue('reset_ips')) {
+    $ip_key = 'keyed_download_ips_' . $node->id();
+    \Drupal::state()->delete($ip_key);
+    \Drupal::messenger()->addMessage(t('IP address list has been cleared. Previously blocked IPs can now download again.'));
+  }
+}
+
+/**
+ * AJAX callback for generating random secret key.
+ */
+function keyed_download_generate_key_callback($form, \Drupal\Core\Form\FormStateInterface $form_state) {
+  // Generate a random 32-character hash
+  $random_key = bin2hex(random_bytes(16));
+  
+  // Update the form state
+  $form_state->setValue(['field_secret_key', 0, 'value'], $random_key);
+  
+  // Create AJAX response
+  $response = new \Drupal\Core\Ajax\AjaxResponse();
+  
+  // Update the input field value
+  $response->addCommand(new \Drupal\Core\Ajax\InvokeCommand('#edit-field-secret-key-0-value', 'val', [$random_key]));
+  
+  // Update the URL display
+  $base_url = \Drupal::request()->getSchemeAndHttpHost();
+  $new_url = $base_url . '/special-download/' . $random_key;
+  $response->addCommand(new \Drupal\Core\Ajax\HtmlCommand('#secret-key-ajax-wrapper .keyed-download-url', $new_url));
+  
+  // Add status message
+  $response->addCommand(new \Drupal\Core\Ajax\MessageCommand(t('New random key generated: @key', ['@key' => $random_key])));
+  
+  return $response;
+}
+
+/**
+ * @file
+ * Contains keyed_download.module.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Entity\EntityInterface;
+
+/**
+ * Implements hook_form_alter().
+ */
+function keyed_download_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  // Add JavaScript and CSS to keyed_download node forms.
+  if (strpos($form_id, 'node_keyed_download_') === 0) {
+    $form['#attached']['library'][] = 'keyed_download/node_form';
+    
+    $node = $form_state->getFormObject()->getEntity();
+    
+    // Make download count field read-only for new nodes
+    if (isset($form['field_download_count'])) {
+      if ($node->isNew()) {
+        $form['field_download_count']['widget'][0]['value']['#attributes']['readonly'] = 'readonly';
+        $form['field_download_count']['widget'][0]['value']['#description'] = t('This field will be automatically updated when downloads occur.');
+      }
+    }
+    
+    // Add AJAX key generator to secret key field
+    if (isset($form['field_secret_key'])) {
+      $form['field_secret_key']['widget'][0]['value']['#prefix'] = '<div id="secret-key-wrapper">';
+      $form['field_secret_key']['widget'][0]['value']['#suffix'] = '</div>';
+      
+      // Add generate button
+      $form['field_secret_key']['generate_key'] = [
+        '#type' => 'button',
+        '#value' => t('Generate Random Key'),
+        '#weight' => 10,
+        '#ajax' => [
+          'callback' => 'keyed_download_generate_key_callback',
+          'wrapper' => 'secret-key-ajax-wrapper',
+          'effect' => 'fade',
+        ],
+      ];
+      
+      // Add URL display wrapper
+      $current_key = '';
+      if (!empty($form['field_secret_key']['widget'][0]['value']['#default_value'])) {
+        $current_key = $form['field_secret_key']['widget'][0]['value']['#default_value'];
+      }
+      
+      $form['field_secret_key']['url_display'] = [
+        '#type' => 'container',
+        '#weight' => 20,
+        '#prefix' => '<div id="secret-key-ajax-wrapper">',
+        '#suffix' => '</div>',
+      ];
+      
+      $form['field_secret_key']['url_display']['current_url'] = [
+        '#type' => 'item',
+        '#title' => t('Download URL'),
+        '#markup' => '<div class="keyed-download-url-container">
+          <code class="keyed-download-url">' . 
+          \Drupal::request()->getSchemeAndHttpHost() . '/special-download/' . $current_key . 
+          '</code>
+          <button type="button" class="button button--small keyed-download-copy-btn">Copy URL</button>
+        </div>',
+      ];
+    }
+    
+    // Add IP tracking and reset functionality for existing nodes
+    if (!$node->isNew()) {
+      $ip_key = 'keyed_download_ips_' . $node->id();
+      $downloaded_ips = \Drupal::state()->get($ip_key, []);
+      $current_count = $node->get('field_download_count')->value ?: 0;
+      
+      // Add IP status display
+      $form['ip_status'] = [
+        '#type' => 'details',
+        '#title' => t('Download Status'),
+        '#weight' => 50,
+        '#open' => TRUE,
+      ];
+      
+      $form['ip_status']['info'] = [
+        '#markup' => '<p><strong>Downloads used:</strong> ' . $current_count . '</p>
+                     <p><strong>Unique IPs downloaded:</strong> ' . count($downloaded_ips) . '</p>',
+      ];
+      
+      if (!empty($downloaded_ips)) {
+        $form['ip_status']['ip_list'] = [
+          '#type' => 'details',
+          '#title' => t('Downloaded IP Addresses (@count)', ['@count' => count($downloaded_ips)]),
+          '#open' => FALSE,
+        ];
+        
+        $ip_list = [];
+        foreach ($downloaded_ips as $index => $ip) {
+          $ip_list[] = ($index + 1) . '. ' . $ip;
+        }
+        
+        $form['ip_status']['ip_list']['ips'] = [
+          '#markup' => '<div style="max-height: 200px; overflow-y: auto; font-family: monospace; padding: 10px; background: #f5f5f5; border: 1px solid #ddd;">' . 
+                       implode('<br>', $ip_list) . '</div>',
+        ];
+      }
+      
+      // Add reset options
+      if ($current_count > 0 || !empty($downloaded_ips)) {
+        $form['reset_options'] = [
+          '#type' => 'details',
+          '#title' => t('Reset Options'),
+          '#weight' => 60,
+          '#open' => FALSE,
+        ];
+        
+        if ($current_count > 0) {
+          $form['reset_options']['reset_counter'] = [
+            '#type' => 'checkbox',
+            '#title' => t('Reset download counter to 0'),
+            '#description' => t('Check this box to reset the download counter. This will allow downloads to resume.'),
+          ];
+        }
+        
+        if (!empty($downloaded_ips)) {
+          $form['reset_options']['reset_ips'] = [
+            '#type' => 'checkbox',
+            '#title' => t('Reset IP address list'),
+            '#description' => t('Check this box to clear the list of IP addresses that have downloaded. This will allow previously blocked IPs to download again.'),
+          ];
+        }
+        
+        // Add custom submit handler for reset actions
+        $form['actions']['submit']['#submit'][] = 'keyed_download_node_form_submit';
+      }
+    }
+    
+    // Add validation to ensure secret key uniqueness
+    $form['#validate'][] = 'keyed_download_node_form_validate';
+  }
+}
+
+/**
+ * Validation handler for keyed_download node forms.
+ */
+function keyed_download_node_form_validate(&$form, FormStateInterface $form_state) {
+  $secret_key = $form_state->getValue(['field_secret_key', 0, 'value']);
+  $node = $form_state->getFormObject()->getEntity();
+  
+  if (!empty($secret_key)) {
+    // Check if another node already uses this secret key
+    $query = \Drupal::entityQuery('node')
+      ->condition('type', 'keyed_download')
+      ->condition('field_secret_key', $secret_key)
+      ->accessCheck(FALSE);
+    
+    // Exclude current node if editing
+    if (!$node->isNew()) {
+      $query->condition('nid', $node->id(), '<>');
+    }
+    
+    $existing = $query->execute();
+    
+    if (!empty($existing)) {
+      $form_state->setErrorByName('field_secret_key][0][value', t('This secret key is already in use by another download. Please choose a different key.'));
+    }
+  }
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_presave().
+ */
+function keyed_download_node_presave(EntityInterface $entity) {
+  if ($entity->bundle() == 'keyed_download') {
+    // Generate a random secret key if none provided
+    if ($entity->get('field_secret_key')->isEmpty()) {
+      $entity->set('field_secret_key', bin2hex(random_bytes(16)));
+    }
+    
+    // Set download count to 0 for new nodes
+    if ($entity->isNew() && $entity->get('field_download_count')->isEmpty()) {
+      $entity->set('field_download_count', 0);
+    }
+  }
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_delete().
+ */
+function keyed_download_node_delete(EntityInterface $entity) {
+  if ($entity->bundle() == 'keyed_download') {
+    // Clean up IP tracking data when node is deleted
+    $ip_key = 'keyed_download_ips_' . $entity->id();
+    \Drupal::state()->delete($ip_key);
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function keyed_download_theme() {
+  return [
+    'keyed_download_status' => [
+      'variables' => [
+        'title' => NULL,
+        'download_count' => 0,
+        'download_limit' => 1,
+        'ip_count' => 0,
+        'status' => TRUE,
+        'secret_key' => NULL,
+        'download_url' => NULL,
+      ],
+    ],
+  ];
+}

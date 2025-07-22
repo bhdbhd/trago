@@ -1,0 +1,64 @@
+.keyed-download-url-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 5px;
+}
+
+.keyed-download-url {
+  display: block;
+  background: #fff;
+  border: 1px solid #ccc;
+  padding: 8px;
+  border-radius: 3px;
+  font-family: monospace;
+  font-size: 12px;
+  word-break: break-all;
+  min-height: 18px;
+  flex: 1;
+}
+
+.keyed-download-copy-btn.button--primary {
+  background: #2196f3;
+  color: white;
+}
+
+.keyed-download-copy-btn.button--danger {
+  background: #f44336;
+  color: white;
+}
+
+.keyed-download-stats {
+  background: #f8f9fa;
+  border-left: 4px solid #4caf50;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+/* AJAX wrapper styling */
+#secret-key-ajax-wrapper {
+  margin-top: 10px;
+  padding: 10px;
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+#secret-key-ajax-wrapper .form-item {
+  margin-bottom: 0;
+}
+
+/* Generate button styling */
+.form-item-field-secret-key-0-value input[name="generate_key"] {
+  background: #4caf50;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 5px;
+}
+
+.form-item-field-secret-key-0-value input[name="generate_key"]:hover {
+  background: #45a049;
+}
