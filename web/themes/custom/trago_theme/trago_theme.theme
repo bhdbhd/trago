@@ -1,0 +1,31 @@
+<?php
+
+
+/**
+ * Implements hook_page_attachments().
+ */
+function trago_theme_page_attachments(array &$attachments) {
+  // Preload Nexa fonts for better performance
+  $font_preloads = [
+    'Nexa-ExtraLight.ttf',
+    'Nexa-Heavy.ttf',
+  ];
+  
+  foreach ($font_preloads as $font) {
+    $attachments['#attached']['html_head_link'][] = [
+      [
+        'rel' => 'preload',
+        'href' => '/' . \Drupal::service('extension.list.theme')->getPath('trago_theme') . '/fonts/' . $font,
+        'as' => 'font',
+        'type' => 'font/ttf',
+        'crossorigin' => 'anonymous',
+      ],
+    ];
+  }
+}
+
+function trago_theme_preprocess_page(&$variables) {
+  $variables['#attached']['library'][] = 'core/drupal.ajax';
+  $variables['#attached']['library'][] = 'core/drupal.dialog';
+  $variables['#attached']['library'][] = 'core/drupal.dialog.ajax';
+}

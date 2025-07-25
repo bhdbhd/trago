@@ -1,0 +1,15 @@
+global-styling:
+  css:
+    theme:
+      css/custom.css: {}
+      css/style.css: {}
+  dependencies:
+    - trago_theme/fonts
+    - core/drupal.ajax
+    - core/drupal.dialog
+    - core/drupal.dialog.ajax
+
+fonts:
+  css:
+    theme:
+      css/fonts.css: {}

@@ -1,0 +1,109 @@
+body {
+    background-image: url(../images/BOT-1.jpg  );
+    background-size: contain;
+    background-repeat: no-repeat repeat-y;
+    background-size: cover;
+    background-color: #000;
+}
+h1, h2, h3, h4, h5, h6 {
+    color: #fff !important;
+    font-family: 'Nexa', Arial, sans-serif;
+    font-weight: 900 !important;
+    text-shadow: 3px 3px 3px #1c1c1c;
+}
+
+h1.ui-dialog-title{
+    font-size: 1.7rem !important;
+    text-shadow: none !important;
+    color: #000 !important;
+    font-weight: 200 !important;
+}
+
+@media (min-width: 992px) {
+
+header,
+.dialog-off-canvas-main-canvas {
+    background-color: transparent !important;
+}
+
+.bg-dark {
+    --bs-bg-opacity: 0
+    background-color: transparent !important;
+    ;
+}
+
+p {
+    color: #fff !important;
+}
+
+
+
+h1 {
+    font-size: 6rem !important;
+}
+
+.field--name-body {
+    margin: 116px 0px 0 0;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 75%;
+}
+
+.field--name-field-media-image .field__item{
+        display: flex;
+    justify-content: flex-end;
+}
+
+.field--name-field-second-body{
+
+    text-align: center;
+    line-height: 1.6;
+    margin-top: 2em;
+}
+.field--name-field-second-body h5{
+    font-size: 1.3rem;
+    line-height: 1.6;
+}
+#right{
+    padding-top: 3rem;
+}
+
+
+ 
+}
+
+@media (min-width: 412px) and (max-width: 991px) {
+
+h1 {
+    font-size: 3.3rem !important;
+}
+
+.field--name-body {
+    margin: 0px 0px 0 0;
+
+    width: 100%;
+}
+
+.field--name-field-media-image .field__item{
+        display: flex;
+    justify-content: flex-end;
+}
+
+.field--name-field-second-body{
+
+    text-align: center;
+    line-height: 1.6;
+    margin-top: 2em;
+}
+.field--name-field-second-body h5{
+    font-size: 1.3rem;
+    line-height: 1.6;
+}
+#right{
+    padding-top: 3rem;
+}
+
+}
