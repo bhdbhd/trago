@@ -1,0 +1,22 @@
+uuid: bacb2aa1-b052-41c4-9935-b841b127ec1d
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - trago_theme
+_core:
+  default_config_hash: 9Y_5YXBQ4jeX-xUl9p3F2EQhDSTXXUfPTa25cbm5lzA
+id: trago_theme_content
+theme: trago_theme
+region: content
+weight: -1
+provider: null
+plugin: system_main_block
+settings:
+  id: system_main_block
+  label: 'Main page content'
+  label_display: '0'
+  provider: system
+visibility: {  }

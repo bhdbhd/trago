@@ -1,0 +1,29 @@
+uuid: a10a3ef0-9cbb-4ea3-9ffe-2ebf4000d2d3
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_keyed_download_reference
+    - node.type.keyed_download
+    - node.type.landing_page
+id: node.landing_page.field_keyed_download_reference
+field_name: field_keyed_download_reference
+entity_type: node
+bundle: landing_page
+label: 'Keyed Download Reference'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      keyed_download: keyed_download
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

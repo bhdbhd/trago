@@ -1,0 +1,22 @@
+uuid: 005e76b9-8aa3-404c-b155-4d5333078aa6
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - trago_theme
+_core:
+  default_config_hash: z1RF9gSzF9fDYmxt9pAhFp_PQAlw5qSNXWN704kKZtc
+id: trago_theme_breadcrumbs
+theme: trago_theme
+region: breadcrumb
+weight: 0
+provider: null
+plugin: system_breadcrumb_block
+settings:
+  id: system_breadcrumb_block
+  label: Breadcrumbs
+  label_display: '0'
+  provider: system
+visibility: {  }

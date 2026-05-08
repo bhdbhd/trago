@@ -1,0 +1,27 @@
+uuid: 92e71cc8-d58a-4d16-bf06-fbc8006d4f95
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.account
+  module:
+    - system
+  theme:
+    - trago_theme
+_core:
+  default_config_hash: pRYvt9l07HSd_4KGSGQZqanHedT0v2RDz3tm_kcgxSs
+id: trago_theme_account_menu
+theme: trago_theme
+region: nav_additional
+weight: -7
+provider: null
+plugin: 'system_menu_block:account'
+settings:
+  id: 'system_menu_block:account'
+  label: 'User account menu'
+  label_display: '0'
+  provider: system
+  level: 1
+  depth: 0
+  expand_all_items: false
+visibility: {  }

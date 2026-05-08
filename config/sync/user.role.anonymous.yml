@@ -8,6 +8,7 @@ dependencies:
     - comment
     - contact
     - filter
+    - keyed_download
     - media
     - search
     - system
@@ -18,8 +19,10 @@ label: 'Anonymous user'
 weight: 0
 is_admin: false
 permissions:
+  - 'access administration pages'
   - 'access comments'
   - 'access content'
+  - 'access keyed downloads'
   - 'access site-wide contact form'
   - 'search content'
   - 'use text format restricted_html'

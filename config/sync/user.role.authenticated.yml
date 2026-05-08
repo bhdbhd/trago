@@ -4,11 +4,13 @@ status: true
 dependencies:
   config:
     - filter.format.basic_html
+    - filter.format.webform_default
   module:
     - comment
     - contact
     - file
     - filter
+    - keyed_download
     - media
     - search
     - shortcut
@@ -20,8 +22,10 @@ label: 'Authenticated user'
 weight: 1
 is_admin: false
 permissions:
+  - 'access administration pages'
   - 'access comments'
   - 'access content'
+  - 'access keyed downloads'
   - 'access shortcuts'
   - 'access site-wide contact form'
   - 'delete own files'
@@ -29,4 +33,5 @@ permissions:
   - 'search content'
   - 'skip comment approval'
   - 'use text format basic_html'
+  - 'use text format webform_default'
   - 'view media'

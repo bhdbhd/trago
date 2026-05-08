@@ -1,0 +1,27 @@
+uuid: 52af1edb-137f-4df7-a35b-fd135dc88d3f
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.main
+  module:
+    - system
+  theme:
+    - trago_theme
+_core:
+  default_config_hash: lRf-tgbut20sGYoo3XH7w2V1lusCDYUj44GdEFXNHGs
+id: trago_theme_main_navigation
+theme: trago_theme
+region: nav_main
+weight: 0
+provider: null
+plugin: 'system_menu_block:main'
+settings:
+  id: 'system_menu_block:main'
+  label: 'Main navigation'
+  label_display: '0'
+  provider: system
+  level: 1
+  depth: 0
+  expand_all_items: true
+visibility: {  }

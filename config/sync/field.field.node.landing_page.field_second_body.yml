@@ -1,0 +1,22 @@
+uuid: 0df9bb2e-ad37-46f3-9cc9-46022dc37af7
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_second_body
+    - node.type.landing_page
+  module:
+    - text
+id: node.landing_page.field_second_body
+field_name: field_second_body
+entity_type: node
+bundle: landing_page
+label: 'Second Body'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_formats: {  }
+field_type: text_long

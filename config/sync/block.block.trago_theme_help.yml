@@ -1,0 +1,22 @@
+uuid: 5b3ff7d5-a361-44b2-b517-82310d658421
+langcode: en
+status: true
+dependencies:
+  module:
+    - help
+  theme:
+    - trago_theme
+_core:
+  default_config_hash: mWEiwgS3dcLfTNiPy0oETtEhBpc7VvtDAwUKvOL8uls
+id: trago_theme_help
+theme: trago_theme
+region: content
+weight: -3
+provider: null
+plugin: help_block
+settings:
+  id: help_block
+  label: Help
+  label_display: '0'
+  provider: help
+visibility: {  }

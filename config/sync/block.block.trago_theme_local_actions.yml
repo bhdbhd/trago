@@ -1,0 +1,20 @@
+uuid: dd1d5142-b041-4778-8cf4-d46c2447eeea
+langcode: en
+status: true
+dependencies:
+  theme:
+    - trago_theme
+_core:
+  default_config_hash: J5GlMw9g0miLeX9CSJzMS5RLBLBV9XtG2uyXVaycfGI
+id: trago_theme_local_actions
+theme: trago_theme
+region: content
+weight: -2
+provider: null
+plugin: local_actions_block
+settings:
+  id: local_actions_block
+  label: 'Primary admin actions'
+  label_display: '0'
+  provider: core
+visibility: {  }

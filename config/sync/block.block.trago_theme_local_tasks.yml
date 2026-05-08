@@ -1,0 +1,22 @@
+uuid: 82e9dc2a-6b32-4b3c-a062-16d6e80f112a
+langcode: en
+status: true
+dependencies:
+  theme:
+    - trago_theme
+_core:
+  default_config_hash: MPuGL1jlsFBcdVl0sSt1wM7NGt5_Wtc-WNUOjxGuGJk
+id: trago_theme_local_tasks
+theme: trago_theme
+region: content
+weight: -4
+provider: null
+plugin: local_tasks_block
+settings:
+  id: local_tasks_block
+  label: Tabs
+  label_display: '0'
+  provider: core
+  primary: true
+  secondary: true
+visibility: {  }

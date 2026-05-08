@@ -1,8 +1,9 @@
-uuid: 15ed4b59-3ac2-4117-b351-78c75d204a34
+uuid: 4080da04-459b-463a-a91b-4878bf574d52
 langcode: en
 status: true
 dependencies:
   config:
+    - core.entity_view_mode.media.full
     - field.field.media.image.field_media_image
     - image.style.large
     - media.type.image
@@ -10,10 +11,10 @@ dependencies:
     - image
 _core:
   default_config_hash: 73xaTNkI5J6sfFcBmNYeuk070X3mQS_iwwWaPYyfG2M
-id: media.image.default
+id: media.image.full
 targetEntityType: media
 bundle: image
-mode: default
+mode: full
 content:
   field_media_image:
     type: image
