@@ -92,14 +92,40 @@ class AddMechanikBlock extends BlockBase implements ContainerFactoryPluginInterf
       return [];
     }
 
+    // Build the URL directly to the node add form (skip the controller redirect).
+    $url = Url::fromRoute('node.add', [
+      'node_type' => 'mechanik',
+    ], [
+      'query' => [
+        'field_garage' => $node->id(),
+        'destination' => '/node/' . $node->id(),
+        'display' => 'mechanik_inline',
+      ],
+    ]);
+
+    // Return the button wrapped in a container div with modal attributes.
     return [
-      '#type' => 'link',
-      '#title' => $this->t('Add Mechanik'),
-      '#url' => Url::fromRoute('motohub_admin_tweaks.add_mechanik', [
-        'garage' => $node->id(),
-      ]),
+      '#type' => 'container',
       '#attributes' => [
-        'class' => ['button', 'button--primary', 'add-mechanik-button'],
+        'class' => ['add-mechanik-block-wrapper'],
+      ],
+      'link' => [
+        '#type' => 'link',
+        '#title' => $this->t('Add Mechanik'),
+        '#url' => $url,
+        '#attributes' => [
+          'class' => ['button', 'button--primary', 'add-mechanik-button', 'use-ajax'],
+          'data-dialog-type' => 'modal',
+          'data-dialog-options' => json_encode([
+            'width' => 800,
+            'height' => 600,
+          ]),
+        ],
+      ],
+      '#attached' => [
+        'library' => [
+          'core/drupal.dialog.ajax',
+        ],
       ],
       '#cache' => [
         'contexts' => [

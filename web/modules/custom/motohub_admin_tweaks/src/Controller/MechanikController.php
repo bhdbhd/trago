@@ -23,12 +23,13 @@ class MechanikController extends ControllerBase {
       return $this->redirect('<front>');
     }
 
-    // Redirect to the mechanik node add form with the garage ID as a query parameter.
+    // Redirect to the mechanik node add form with the garage ID and destination.
     $url = \Drupal\Core\Url::fromRoute('node.add', [
       'node_type' => 'mechanik',
     ], [
       'query' => [
         'field_garage' => $garage->id(),
+        'destination' => '/node/' . $garage->id(),
       ],
     ]);
 
