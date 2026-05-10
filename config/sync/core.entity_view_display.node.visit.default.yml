@@ -1,0 +1,66 @@
+uuid: 442f3a5f-c1bf-446c-8534-45adf3c525e6
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.visit.field_date_visit
+    - field.field.node.visit.field_garage_id
+    - field.field.node.visit.field_make_and_model
+    - field.field.node.visit.field_service
+    - field.field.node.visit.field_visit_description
+    - node.type.visit
+  module:
+    - datetime
+    - user
+id: node.visit.default
+targetEntityType: node
+bundle: visit
+mode: default
+content:
+  field_date_visit:
+    type: datetime_default
+    label: above
+    settings:
+      timezone_override: ''
+      format_type: medium
+    third_party_settings: {  }
+    weight: 101
+    region: content
+  field_garage_id:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 103
+    region: content
+  field_make_and_model:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 105
+    region: content
+  field_service:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 104
+    region: content
+  field_visit_description:
+    type: basic_string
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 102
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  langcode: true

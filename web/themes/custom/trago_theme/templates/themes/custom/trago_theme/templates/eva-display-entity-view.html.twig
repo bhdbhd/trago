@@ -1,0 +1,52 @@
+{#
+/**
+ * @file
+ * Theme override to display a view rendered by the EVA module.
+ *
+ * Available variables:
+ * - view: The view object.
+ * - rows: The rendered view results.
+ * - pager: The pager (if any).
+ * - exposed: The exposed form/filters (if any).
+ * - feed_icons: Feed icons (if any).
+ * - more: A link to view more results (if any).
+ * - attachment_before: Content attached before the view.
+ * - attachment_after: Content attached after the view.
+ */
+#}
+<div{{ attributes }}>
+  {{ title_prefix }}
+  {% if title %}
+    {{ title }}
+  {% endif %}
+  {{ title_suffix }}
+
+  {% if exposed %}
+    {{ exposed }}
+  {% endif %}
+
+  {% if attachment_before %}
+    {{ attachment_before }}
+  {% endif %}
+
+  {# Move pager BEFORE rows #}
+  {% if pager %}
+    {{ pager }}
+  {% endif %}
+
+  {% if rows %}
+    {{ rows }}
+  {% endif %}
+
+  {% if attachment_after %}
+    {{ attachment_after }}
+  {% endif %}
+
+  {% if more %}
+    {{ more }}
+  {% endif %}
+
+  {% if feed_icons %}
+    {{ feed_icons }}
+  {% endif %}
+</div>

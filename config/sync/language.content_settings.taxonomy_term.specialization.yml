@@ -1,0 +1,11 @@
+uuid: 05eb2914-f992-4091-8332-a8f052404285
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.specialization
+id: taxonomy_term.specialization
+target_entity_type_id: taxonomy_term
+target_bundle: specialization
+default_langcode: site_default
+language_alterable: false

@@ -1,0 +1,29 @@
+uuid: 98d94f0a-dfc4-45af-89d0-cf9f440beabc
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_make_and_model
+    - node.type.visit
+    - taxonomy.vocabulary.makes_and_models
+id: node.visit.field_make_and_model
+field_name: field_make_and_model
+entity_type: node
+bundle: visit
+label: 'Make and model'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:filter_existing_terms'
+  handler_settings:
+    target_bundles:
+      makes_and_models: makes_and_models
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

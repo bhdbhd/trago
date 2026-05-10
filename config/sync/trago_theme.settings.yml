@@ -20,3 +20,4 @@ favicon:
 subtheme_folder: themes/custom
 subtheme_name: 'B5 subtheme'
 subtheme_machine_name: b5subtheme
+b5_theme_mode: dark

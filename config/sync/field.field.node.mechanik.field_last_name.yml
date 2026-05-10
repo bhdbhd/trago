@@ -1,0 +1,19 @@
+uuid: 5d87b0da-6a4c-452c-9408-7e662e4ccb67
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_last_name
+    - node.type.mechanik
+id: node.mechanik.field_last_name
+field_name: field_last_name
+entity_type: node
+bundle: mechanik
+label: 'Last Name'
+description: 'Nazwisko Mechanika'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

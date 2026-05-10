@@ -1,0 +1,5 @@
+name: 'Motohub Admin Tweaks'
+type: module
+description: 'Administrative tweaks for Motohub site'
+core_version_requirement: ^11
+package: Custom

@@ -1,0 +1,38 @@
+uuid: f72a1cc9-baee-4ad0-b8ef-8d0462ca7d4d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.garage.body
+    - field.field.node.garage.field_mechanicy
+    - node.type.garage
+  module:
+    - text
+    - user
+id: node.garage.default
+targetEntityType: node
+bundle: garage
+mode: default
+content:
+  body:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_mechanicy:
+    type: entity_reference_label
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 101
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  langcode: true

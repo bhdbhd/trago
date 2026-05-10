@@ -1,0 +1,9 @@
+uuid: 2ae695af-98d3-4556-b045-422b17572f21
+langcode: en
+status: true
+dependencies: {  }
+name: Specialization
+vid: specialization
+description: 'Mechanics Specilazation'
+weight: 0
+new_revision: false

@@ -1,0 +1,18 @@
+uuid: dc7f87db-5d78-471c-b2bd-7182d8b1eb2a
+langcode: en
+status: true
+dependencies:
+  theme:
+    - trago_theme
+id: trago_theme_pagetitle
+theme: trago_theme
+region: content
+weight: 0
+provider: null
+plugin: page_title_block
+settings:
+  id: page_title_block
+  label: 'Page title'
+  label_display: '0'
+  provider: core
+visibility: {  }

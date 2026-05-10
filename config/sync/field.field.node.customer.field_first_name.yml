@@ -1,0 +1,19 @@
+uuid: 1cb1d7d4-8ffb-497f-ac1c-015a3c7d9b6b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_first_name
+    - node.type.customer
+id: node.customer.field_first_name
+field_name: field_first_name
+entity_type: node
+bundle: customer
+label: 'First Name'
+description: 'Imie Klienta'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

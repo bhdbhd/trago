@@ -1,0 +1,18 @@
+uuid: 548450ba-03fd-40d3-8e45-087f7c1194df
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus:
+      - main
+    parent: 'main:'
+name: Customer
+type: customer
+description: 'Use for creating new customer'
+help: null
+new_revision: true
+preview_mode: 0
+display_submitted: true

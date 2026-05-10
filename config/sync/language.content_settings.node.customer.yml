@@ -1,0 +1,11 @@
+uuid: ff64aeee-136e-4c37-a7dd-2b395d451e84
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.customer
+id: node.customer
+target_entity_type_id: node
+target_bundle: customer
+default_langcode: site_default
+language_alterable: false

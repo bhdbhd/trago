@@ -10,7 +10,6 @@ dependencies:
     - contact
     - file
     - filter
-    - keyed_download
     - media
     - search
     - shortcut
@@ -25,7 +24,6 @@ permissions:
   - 'access administration pages'
   - 'access comments'
   - 'access content'
-  - 'access keyed downloads'
   - 'access shortcuts'
   - 'access site-wide contact form'
   - 'delete own files'

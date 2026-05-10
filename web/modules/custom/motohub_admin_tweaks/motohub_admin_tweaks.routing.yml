@@ -1,0 +1,12 @@
+motohub_admin_tweaks.add_mechanik:
+  path: '/garage/{garage}/add-mechanik'
+  defaults:
+    _controller: '\Drupal\motohub_admin_tweaks\Controller\MechanikController::addMechanik'
+    _title: 'Add Mechanik'
+  requirements:
+    _permission: 'create mechanik content'
+    garage: \d+
+  options:
+    parameters:
+      garage:
+        type: 'entity:node'

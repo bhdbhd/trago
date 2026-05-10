@@ -1,0 +1,11 @@
+uuid: fe2d6d63-d463-45a5-a5eb-68e5303c4ba7
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.garage
+id: node.garage
+target_entity_type_id: node
+target_bundle: garage
+default_langcode: site_default
+language_alterable: false

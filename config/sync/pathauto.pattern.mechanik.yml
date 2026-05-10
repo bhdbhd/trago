@@ -1,0 +1,23 @@
+uuid: 5a51e049-4f06-4fc2-b07e-a0a42054eec4
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.mechanik
+  module:
+    - node
+id: mechanik
+label: Mechanik
+type: 'canonical_entities:node'
+pattern: '/mechanik/[node:field_garage:entity:title]/[node:title]'
+selection_criteria:
+  3af725f7-e4b1-4fde-a35a-311371ef205c:
+    id: 'entity_bundle:node'
+    negate: false
+    context_mapping:
+      node: node
+    bundles:
+      mechanik: mechanik
+selection_logic: and
+weight: -5
+relationships: {  }

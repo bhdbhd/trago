@@ -1,9 +1,9 @@
 body {
-    background-image: url(../images/BOT-1.jpg  );
+
     background-size: contain;
     background-repeat: no-repeat repeat-y;
     background-size: cover;
-    background-color: #000;
+    background-color: #1b1b1b;
 }
 h1, h2, h3, h4, h5, h6 {
     color: #fff !important;
@@ -13,10 +13,20 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1.ui-dialog-title{
-    font-size: 1.7rem !important;
+    font-size: 1rem !important;
     text-shadow: none !important;
     color: #000 !important;
     font-weight: 200 !important;
+}
+.is-future.next-month{
+    background-color: #0e0e1d;
+}
+.is-past.previous-month{
+    background-color: #0e0e1d;
+}
+
+.is-today{
+    background-color: #09488b !important;
 }
 
 @media (min-width: 992px) {
@@ -39,7 +49,7 @@ p {
 
 
 h1 {
-    font-size: 6rem !important;
+    font-size: 2.4rem !important;
 }
 
 .field--name-body {
@@ -58,7 +68,6 @@ h1 {
 }
 
 .field--name-field-second-body{
-
     text-align: center;
     line-height: 1.6;
     margin-top: 2em;
@@ -66,9 +75,6 @@ h1 {
 .field--name-field-second-body h5{
     font-size: 1.3rem;
     line-height: 1.6;
-}
-#right{
-    padding-top: 3rem;
 }
 
 

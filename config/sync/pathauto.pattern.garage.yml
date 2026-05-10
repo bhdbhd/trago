@@ -1,0 +1,23 @@
+uuid: 854b0d57-c011-4fee-88aa-96af8f0c927b
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.garage
+  module:
+    - node
+id: garage
+label: Garage
+type: 'canonical_entities:node'
+pattern: '/warsztat/[node:title]'
+selection_criteria:
+  c13ee64f-15c8-473e-8c38-35b59d0f08aa:
+    id: 'entity_bundle:node'
+    negate: false
+    context_mapping:
+      node: node
+    bundles:
+      garage: garage
+selection_logic: and
+weight: -5
+relationships: {  }

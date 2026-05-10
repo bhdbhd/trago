@@ -1,0 +1,84 @@
+<?php
+
+/**
+ * @file
+ * Motohub admin tweaks module.
+ */
+
+use Drupal\Core\Entity\EntityFormInterface;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_form_node_form_alter().
+ */
+function motohub_admin_tweaks_form_node_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $form_object = $form_state->getFormObject();
+  if (!$form_object instanceof EntityFormInterface) {
+    return;
+  }
+  
+  $entity = $form_object->getEntity();
+  
+  if ($entity->bundle() === 'mechanik') {
+    // Hide the title field
+    if (isset($form['title'])) {
+      $form['title']['#access'] = FALSE;
+    }
+    
+    // Add validation to auto-populate title
+    $form['#validate'][] = 'motohub_admin_tweaks_mechanik_title_validate';
+  }
+}
+
+/**
+ * Validation callback to auto-populate title for mechanik content type.
+ */
+function motohub_admin_tweaks_mechanik_title_validate(array &$form, FormStateInterface $form_state) {
+  $form_object = $form_state->getFormObject();
+  if (!$form_object instanceof EntityFormInterface) {
+    return;
+  }
+  
+  $entity = $form_object->getEntity();
+  if ($entity->bundle() !== 'mechanik') {
+    return;
+  }
+  
+  // Get first name and last name values
+  $first_name = '';
+  $last_name = '';
+  
+  if ($first_name_values = $form_state->getValue('field_first_name')) {
+    $first_name = isset($first_name_values[0]['value']) ? trim($first_name_values[0]['value']) : '';
+  }
+  
+  if ($last_name_values = $form_state->getValue('field_last_name')) {
+    $last_name = isset($last_name_values[0]['value']) ? trim($last_name_values[0]['value']) : '';
+  }
+  
+  // Combine names for title
+  $title_parts = array_filter([$first_name, $last_name]);
+  $generated_title = !empty($title_parts) ? implode(' ', $title_parts) : 'Untitled Mechanik';
+  
+  // Set the title value
+  $form_state->setValue('title', [0 => ['value' => $generated_title]]);
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_presave() for node entities.
+ */
+function motohub_admin_tweaks_node_presave(EntityInterface $entity) {
+  // Auto-populate title for mechanik content type
+  if ($entity->bundle() === 'mechanik || customer') {
+    $first_name = $entity->hasField('field_first_name') && !$entity->get('field_first_name')->isEmpty() 
+      ? trim($entity->get('field_first_name')->value) : '';
+    $last_name = $entity->hasField('field_last_name') && !$entity->get('field_last_name')->isEmpty() 
+      ? trim($entity->get('field_last_name')->value) : '';
+    
+    $title_parts = array_filter([$first_name, $last_name]);
+    $generated_title = !empty($title_parts) ? implode(' ', $title_parts) : 'Untitled Mechanik';
+    
+    $entity->setTitle($generated_title);
+  }
+}

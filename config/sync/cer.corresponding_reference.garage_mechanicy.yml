@@ -1,0 +1,14 @@
+uuid: 215daebe-71d5-478a-82a7-b4344c2ed72c
+langcode: en
+status: true
+dependencies: {  }
+id: garage_mechanicy
+label: 'Garage Mechanicy'
+enabled: true
+first_field: field_mechanicy
+second_field: field_garage
+add_direction: append
+bundles:
+  node:
+    - garage
+    - mechanik

@@ -1,0 +1,24 @@
+uuid: a9186580-7f1b-4531-9b32-56226c5d05c3
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_date_visit
+    - node.type.visit
+  module:
+    - datetime
+id: node.visit.field_date_visit
+field_name: field_date_visit
+entity_type: node
+bundle: visit
+label: 'Date of visit'
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    default_date_type: now
+    default_date: now
+default_value_callback: ''
+settings: {  }
+field_type: datetime

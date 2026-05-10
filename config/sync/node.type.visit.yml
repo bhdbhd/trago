@@ -1,0 +1,18 @@
+uuid: 0c64db88-cbe7-44e1-917d-8f2f3996b8f0
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus:
+      - main
+    parent: 'main:'
+name: Visit
+type: visit
+description: 'Use to create new visit'
+help: null
+new_revision: true
+preview_mode: 0
+display_submitted: true

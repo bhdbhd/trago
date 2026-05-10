@@ -1,0 +1,33 @@
+uuid: 1802e9f4-999e-41a4-aa15-8ae27d688613
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.garage.body
+    - field.field.node.garage.field_mechanicy
+    - node.type.garage
+  module:
+    - text
+    - user
+id: node.garage.teaser
+targetEntityType: node
+bundle: garage
+mode: teaser
+content:
+  body:
+    type: text_summary_or_trimmed
+    label: hidden
+    settings:
+      trim_length: 600
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  field_mechanicy: true
+  langcode: true

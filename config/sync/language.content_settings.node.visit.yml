@@ -1,0 +1,11 @@
+uuid: 898cde1a-46a1-4a28-9638-c9cfb62d5d6f
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.visit
+id: node.visit
+target_entity_type_id: node
+target_bundle: visit
+default_langcode: site_default
+language_alterable: false

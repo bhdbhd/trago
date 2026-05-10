@@ -9,7 +9,7 @@ _core:
 id: trago_theme_local_actions
 theme: trago_theme
 region: content
-weight: -2
+weight: -1
 provider: null
 plugin: local_actions_block
 settings:

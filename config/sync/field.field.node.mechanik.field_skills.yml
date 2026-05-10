@@ -1,0 +1,29 @@
+uuid: 1bb16214-2983-4846-b5f5-042e4f144f08
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_skills
+    - node.type.mechanik
+    - taxonomy.vocabulary.specialization
+id: node.mechanik.field_skills
+field_name: field_skills
+entity_type: node
+bundle: mechanik
+label: Skills
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:filter_existing_terms'
+  handler_settings:
+    target_bundles:
+      specialization: specialization
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

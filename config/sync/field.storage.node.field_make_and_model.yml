@@ -1,0 +1,20 @@
+uuid: 18d45cb2-d8ec-4aee-aa10-dc2e0ae75555
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - taxonomy
+id: node.field_make_and_model
+field_name: field_make_and_model
+entity_type: node
+type: entity_reference
+settings:
+  target_type: taxonomy_term
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

@@ -1,0 +1,38 @@
+uuid: b96385d6-cd24-4331-8a2d-cceb3a3f2c93
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.customer.field_first_name
+    - field.field.node.customer.field_last_name
+    - node.type.customer
+  module:
+    - user
+id: node.customer.default
+targetEntityType: node
+bundle: customer
+mode: default
+content:
+  field_first_name:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 101
+    region: content
+  field_last_name:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 102
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  langcode: true

@@ -1,0 +1,11 @@
+uuid: 81771f13-0a8a-4789-a3d8-154f1d949985
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.makes_and_models
+id: taxonomy_term.makes_and_models
+target_entity_type_id: taxonomy_term
+target_bundle: makes_and_models
+default_langcode: site_default
+language_alterable: false

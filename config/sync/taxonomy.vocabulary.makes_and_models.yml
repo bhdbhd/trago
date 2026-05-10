@@ -1,0 +1,9 @@
+uuid: e555a5b3-9b61-41ce-a219-fb4557c47fd7
+langcode: en
+status: true
+dependencies: {  }
+name: 'Makes and models'
+vid: makes_and_models
+description: 'Cars makes and models'
+weight: 0
+new_revision: false
